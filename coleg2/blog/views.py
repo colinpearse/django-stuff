@@ -3,11 +3,6 @@ from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 
-import verbose
-verbose.setLevels(1)
-verbose.openFile("verbose.log","a")
-#verbose.closeFile()
-
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -21,8 +16,13 @@ def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
+            import verbose
+            verbose.setLevels(1)
+            verbose.openFile("verbose.log","a")
             verbose.verbose(1,("request.user=%s" % (request.user)))
+            verbose.closeFile()
+
+            post = form.save(commit=False)
             post.author = request.user  # NOTE: ERROR when admin not set
             post.published_date = timezone.now()
             post.save()
