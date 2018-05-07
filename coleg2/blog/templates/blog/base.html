@@ -9,7 +9,13 @@
     </head>
     <body>
         <div class="page-header">
-            <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            {% if user.is_authenticated %}
+                <p class="top-menu"> {{ user.username }} <a style="font-size:small;color:white" href="{% url 'logout' %}">[LOG OUT]</a></p>
+                <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            {% else %}
+                <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+            {% endif %}
             <h1><a href="/">Eg Blog</a></h1>
         </div>
 
