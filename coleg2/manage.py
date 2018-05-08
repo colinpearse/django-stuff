@@ -3,12 +3,7 @@ import os
 import sys
 
 if __name__ == "__main__":
-    # Change for Heroku gitpull, test with Pythonanywhere too
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "coleg2.settings")
-    #try:
-    #    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "coleg2.local_settings")
-    #except ImportError:
-    #    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "coleg2.settings")
 
     try:
         from django.core.management import execute_from_command_line
